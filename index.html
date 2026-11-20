@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+      <div id="app">
+    <div class="game-container">
+
+      <!-- ゲームタイトル -->
+      <header class="game-header">
+        <p class="game-label">MEMORY CHALLENGE</p>
+        <h1>MEMORY GAME</h1>
+        <p class="game-description">同じ絵柄のカードを見つけよう</p>
+      </header>
+
+      <!-- ゲーム情報 -->
+      <div class="game-info">
+        <div class="info-box">
+          <span class="info-label">TURN</span>
+          <span class="info-value">{{ turns }}</span>
+        </div>
+
+        <div class="info-box">
+          <span class="info-label">PAIRS</span>
+          <span class="info-value">{{ matchedPairs }} / 8</span>
+        </div>
+      </div>
+
+      <!-- カード一覧 -->
+      <div class="card-grid">
+        <div
+          v-for="card in cards"
+          :key="card.id"
+          class="card"
+          :class="{
+            flipped: card.flipped,
+            matched: card.matched
+          }"
+          @click="flipCard(card)"
+        >
+          <div class="card-inner">
+
+            <!-- カード裏面 -->
+            <div class="card-back">
+              <img src="images/9.webp" alt="">
+            </div>
+
+            <!-- カード表面 -->
+            <div class="card-front">
+              <img :src="card.image" :alt="card.name">
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ゲームクリア画面 -->
+      <div v-if="isGameClear" class="result-panel">
+        <h2>GAME CLEAR!</h2>
+        <p>すべてのカードを揃えました。</p>
+        <p class="result-score">
+          <span>{{ turns }}</span> TURN
+        </p>
+      </div>
+
+      <!-- リスタートボタン -->
+      <button class="restart-button" @click="restartGame">
+        RESTART GAME
+      </button>
+
+    </div>
+  </div>
+
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
